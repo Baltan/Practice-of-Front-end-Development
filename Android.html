@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>work1</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            position: absolute;
+        }
+
+        div#face, #body, #leftArm, #rightArm, #leftLeg, #rightLeg, #leftAntenna, #rightAntenna, #head {
+            background-color: rgb(163, 204, 40);
+        }
+
+        div#face {
+            width: 220px;
+            height: 100px;
+            border-top-left-radius: 100px;
+            border-top-right-radius: 100px;
+            top: 150px;
+            left: 500px;
+        }
+
+        div#body {
+            width: 220px;
+            height: 185px;
+            border-bottom-left-radius: 22.5px;
+            border-bottom-right-radius: 22.5px;
+            top: 260px;
+            left: 500px;
+        }
+
+        div#leftArm, #rightArm {
+            height: 150px;
+            width: 50px;
+            border-radius: 25px;
+            top: 260px;
+        }
+
+        div#leftLeg, #rightLeg {
+            height: 80px;
+            width: 50px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+            top: 445px;
+        }
+
+        div#leftArm {
+            left: 440px;
+        }
+
+        div#rightArm {
+            left: 730px;
+        }
+
+        div#leftLeg {
+            left: 545px;
+        }
+
+        div#rightLeg {
+            left: 625px;
+        }
+
+        div#leftEye, #rightEye {
+            height: 20px;
+            width: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            top: 190px;
+        }
+
+        div#leftEye {
+            left: 545px;
+        }
+
+        div#rightEye {
+            left: 655px;
+        }
+
+        div#leftAntenna, #rightAntenna {
+            height: 45px;
+            width: 5px;
+            border-top-left-radius: 2.5px;
+            border-top-right-radius: 2.5px;
+            top: 120px;
+        }
+
+        div#leftAntenna {
+            transform: rotate(-30deg);
+            left: 550px;
+        }
+
+        div#rightAntenna {
+            transform: rotate(30deg);
+            left: 665px;
+        }
+
+        div#head:hover {
+            left: -8px;
+            top: 20px;
+            transform: rotate(-2deg);
+        }
+
+        div#leftArm:hover {
+            transform: rotate(10deg);
+        }
+
+        div#rightArm:hover {
+            transform: rotate(-10deg);
+        }
+
+        div#leftEye:hover {
+            background-color: #FF0000;
+        }
+
+        div#rightEye:hover {
+            background-color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+<div id="head">
+    <div id="face"></div>
+    <div id="leftEye"></div>
+    <div id="rightEye"></div>
+    <div id="leftAntenna"></div>
+    <div id="rightAntenna"></div>
+</div>
+<div id="body"></div>
+<div id="leftArm"></div>
+<div id="rightArm"></div>
+<div id="leftLeg"></div>
+<div id="rightLeg"></div>
+</body>
+</html>
