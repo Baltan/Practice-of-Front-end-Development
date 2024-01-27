@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #parent {
+            width: 600px;
+            height: 600px;
+            background-color: #000000;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: flex-start;
+            align-content: center;
+        }
+
+        .child {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+
+        #child1 {
+            background-color: red;
+        }
+
+        #child2 {
+            background-color: orange;
+        }
+
+        #child3 {
+            background-color: yellow;
+        }
+
+        #child4 {
+            background-color: green;
+        }
+
+        #child5 {
+            background-color: lime;
+        }
+
+        #child6 {
+            background-color: blue;
+            /* flex-shrink: 2; */
+        }
+
+        #child7 {
+            background-color: purple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <div id="child1" class="child"></div>
+        <div id="child2" class="child"></div>
+        <div id="child3" class="child"></div>
+        <div id="child4" class="child"></div>
+        <div id="child5" class="child"></div>
+        <div id="child6" class="child"></div>
+        <div id="child7" class="child"></div>
+    </div>
+</body>
+
+</html>

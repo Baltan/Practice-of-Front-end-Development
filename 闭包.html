@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+    <script type="text/javascript">
+        //闭包
+        function add() {
+            var a = 1;
+            return function () {
+                a++;
+                alert(a);
+            }
+        }
+        var calculate = add();
+        // calculate();
+        // calculate();
+        // calculate();
+
+
+
+        function createArr() {
+            var arr = [];
+            for (var i = 0; i < 3; i++) {
+                arr[i] = function () {
+                    return i;
+                }
+            }
+            return arr;
+        }
+        var arr1 = createArr();
+        // alert(arr1[0]());     //3
+        // alert(arr1[1]());     //3
+        // alert(arr1[2]());     //3
+
+
+
+        function createArr() {
+            var arr = [];
+            for (var i = 0; i < 3; i++) {
+                arr[i] = (function (num) {
+                    return num;
+                })(i);
+            }
+            return arr;
+        }
+        var arr1 = createArr();
+        // alert(arr1[0]);     //0
+        // alert(arr1[1]);     //1
+        // alert(arr1[2]);     //2
+
+
+
+        //??????????为什么不这样写
+        function createArr() {
+            var arr = [];
+            for (var i = 0; i < 3; i++) {
+                arr[i] = i;
+            }
+            return arr;
+        }
+        var arr1 = createArr();
+        // alert(arr1[0]);     //0
+        // alert(arr1[1]);     //1
+        // alert(arr1[2]);     //2
+
+
+
+        //闭包
+        function createArr() {
+            var arr = [];
+            for (var i = 0; i < 3; i++) {
+                arr[i] = (function (num) {
+                    return function () {
+                        return num;
+                    };
+                })(i);
+            }
+            return arr;
+        }
+        var arr1 = createArr();
+        // alert(arr1[0]());     //0
+        // alert(arr1[1]());     //1
+        // alert(arr1[2]());     //2
+
+
+
+        //闭包
+        var name = "window";
+        var obj = {
+            name: "object",
+            say: function () {
+                return function () {
+                    alert(this.name);
+                }
+            }
+        }
+        // obj.say()();     //window
+        // obj.say().call(obj);     //object，对象冒充
+
+
+
+        var name = "window";
+        var obj = {
+            name: "object",
+            say: function () {
+                var that = this
+                return function () {
+                    alert(that.name);
+                }
+            }
+        }
+        // obj.say()();     //object
+
+
+
+        //模拟块级作用域（私有作用域）
+        function block() {
+            (function () {
+                for (var i = 0; i < 3; i++) {
+                    alert(i);     //0  1  2
+                }
+            })()
+            alert(i);     //访问不到i
+        }
+        // block();
+
+
+
+        //静态私有变量
+        (function () {
+            var name = "";
+            //要写成Person=function(){}，这是一个全局函数，不能写成function Person(){}
+            Person = function (value) {
+                name = value;
+            }
+            Person.prototype.getName = function () {
+                alert(name);
+            }
+            Person.prototype.setName = function (i) {
+                name = i;
+            }
+        })();
+        var person1 = new Person("张三");
+        var person2 = new Person("李四");
+        // person1.getName();     //李四
+        // person2.getName();     //李四
+
+
+
+        //访问私有变量
+        function One() {
+            var name = "小明";
+            function say() {
+                return "爱学习";
+            }
+            this.test = function () {
+                return name + say();
+            }
+        }
+        var p = new One();
+        // alert(p.test());
+
+
+
+        //块级作用域+字面量方式访问私有变量
+        var obj = (function () {
+            var name = "王五";
+            function say() {
+                return "今年8岁";
+            }
+            return {
+                intro: function () {
+                    return name + "," + say();
+                }
+            }
+        })()
+        // alert(obj.intro());
+
+
+
+        //块级作用域+构造函数访问私有变量
+        function Student() { };
+        var student = (function () {
+            var name = "赵六";
+            function say() {
+                return "今年8岁";
+            }
+            var one = new Student;
+            one.intro = function () {
+                return name + "," + say();
+            }
+            return one;
+        })()
+        // alert(student.intro());
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

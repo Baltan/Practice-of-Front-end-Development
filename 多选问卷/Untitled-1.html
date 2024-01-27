@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            $("div").on("click", "input:checkbox", function () {
+                if ($(this).attr("rejectFlag") === "0") {
+                    $(this).siblings("input:checkbox[rejectFlag=1]").prop("checked", false);
+                } else {
+                    $(this).siblings("input:checkbox[rejectFlag=0]").prop("checked", false);
+                }
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <input type="checkbox" rejectFlag="0" />111111
+        <br />
+        <input type="checkbox" rejectFlag="0" />222222
+        <br />
+        <input type="checkbox" rejectFlag="0" />333333
+        <br />
+        <input type="checkbox" rejectFlag="0" />444444
+        <br />
+        <input type="checkbox" rejectFlag="1" />以上都不是
+    </div>
+    <br />
+    <div>
+        <input type="checkbox" rejectFlag="0" />111111
+        <br />
+        <input type="checkbox" rejectFlag="0" />222222
+        <br />
+        <input type="checkbox" rejectFlag="0" />333333
+        <br />
+        <input type="checkbox" rejectFlag="0" />444444
+        <br />
+        <input type="checkbox" rejectFlag="1" />以上都不是
+    </div>
+    <br />
+    <div>
+        <input type="checkbox" rejectFlag="0" />111111
+        <br />
+        <input type="checkbox" rejectFlag="0" />222222
+        <br />
+        <input type="checkbox" rejectFlag="0" />333333
+        <br />
+        <input type="checkbox" rejectFlag="0" />444444
+        <br />
+        <input type="checkbox" rejectFlag="1" />以上都不是
+    </div>
+</body>
+
+</html>

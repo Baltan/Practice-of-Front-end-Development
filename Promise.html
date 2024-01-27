@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let userLogin = (resolve, reject) => {
+            setTimeout(() => {
+                if (true) {
+                    resolve({
+                        token: "qwertyuiop"
+                    });
+                } else {
+                    reject({
+                        err: "登录失败"
+                    });
+                }
+            }, 1000);
+        }
+
+        let getUserInfo = (resolve, reject) => {
+            setTimeout(() => {
+                if (false) {
+                    resolve({
+                        name: "张三",
+                        age: 20
+                    });
+                } else {
+                    reject({
+                        err: "获取用户信息失败"
+                    });
+                }
+            }, 2000);
+        }
+
+        new Promise(userLogin).then(data => {
+            console.log(data.token);
+            return new Promise(getUserInfo);
+        }, data => console.log(data.err)).then(data =>
+            console.log(data.name, data.age)
+        ).catch(data => console.log(data.err));
+    </script>
+</body>
+
+</html>

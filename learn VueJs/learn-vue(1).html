@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js</title>
+    <!-- <script src="https://unpkg.com/vue"></script> -->
+    <script src="/Users/Baltan/Desktop/Study/Util/VueJs/vue.js"></script>
+</head>
+
+<body>
+    <div id="div1" class="class1" :class="{class2:class2IsActive,class3:class3IsActive}" @click.capture="baz">
+        <p :title="message2" v-if="message3" @click.prevent="foo">
+            {{message1}}
+        </p>
+        <p v-else>666</p>
+        <p :class="[class4,class5]" @click="bar($event)">
+            {{reversedMessage1}}
+        </p>
+        <p :class="[class6IsActive ? class6 : '']">
+            {{anotherReversedMessage1()}}
+        </p>
+        <hr>
+        <ul>
+            <li v-for="item in message4">
+                {{ item.num }}、{{ item.text }}
+            </li>
+        </ul>
+        <hr>
+        <input v-model="message5">
+        <hr>
+    </div>
+    <div id="div2">
+        <ul>
+            <my-list v-for="item in message6" :teamnames="item" :key="item.ranking"></my-list>
+        </ul>
+        <my-template></my-template>
+    </div>
+    <hr>
+    <div id="div3" v-html="message7"></div>
+    <hr>
+    <div id="div4" v-show="showState">
+        <p>{{ message8?"yes":"no" }}</p>
+        <p>{{ message9+1 }}</p>
+    </div>
+    <hr>
+    <div id="div5">
+        <p>First Name:{{ firstName }}</p>
+        <p>Last Name:{{ lastName }}</p>
+        <p>Full Name:{{ fullName }}</p>
+        <br>
+        <input type="text" :value="message10">
+    </div>
+    <hr>
+    <div id="div6">
+        <ul style="list-style-type:none">
+            <li v-for="(item,index) in nameList">
+                {{index}}、{{item.val}}
+            </li>
+        </ul>
+        <ul style="list-style-type:none">
+            <li v-for="(value,key,index) in objList">
+                {{index}}-{{key}}-{{value}}
+            </li>
+        </ul>
+    </div>
+    <hr>
+    <div id="div7">
+        <ul>
+            <li v-for="item in oddNums">{{item}}</li>
+        </ul>
+        <ul>
+            <li v-for="item in evenNums(nums)">{{item}}</li>
+        </ul>
+        <span v-for="item in 9">{{item}}</span>
+    </div>
+    <script>
+        "use strict"
+        let data1 = new Vue({
+            el: "#div1",
+            data: {
+                message1: "Holy shit!",
+                message2: "这是一个title属性",
+                message3: true,
+                message4: [{
+                    num: 1,
+                    text: "Java"
+                }, {
+                    num: 2,
+                    text: "Python"
+                }, {
+                    num: 3,
+                    text: "Golang"
+                }],
+                message5: "placeholder",
+                class2IsActive: true,
+                class3IsActive: false,
+                class4: "pClass4",
+                class5: "pClass5",
+                class6: "pclass6",
+                class6IsActive: true
+            },
+            methods: {
+                baz: function () {
+                    alert(`This is a div`);
+                },
+                foo: function (event) {
+                    alert(this);
+                    alert(event);
+                },
+                bar: function (arg) {
+                    alert(arg);
+                },
+                anotherReversedMessage1: function () {
+                    return this.message1.split("").reverse().join("");
+                }
+            },
+            computed: {
+                reversedMessage1: function () {
+                    return this.message1.split("").reverse().join("");
+                }
+            },
+            watch: {
+                message2: function (newValue, oldValue) {
+                    alert(`旧的值是${oldValue}，新的值是${newValue}。`)
+                }
+            }
+        })
+        data1.$watch("message1", function (newValue, oldValue) {
+            alert(`旧的值是${oldValue}，新的值是${newValue}。`);
+        })
+        Vue.component("my-list", {
+            props: ["teamnames"],
+            template: "<li>{{ teamnames.team }}</li>"
+        })
+        let myTemplate = {
+            template: "<div>*****************************************************************************</div>"
+        }
+        let data2 = new Vue({
+            el: "#div2",
+            data: {
+                message6: [{
+                    ranking: 1,
+                    team: "ManUtd"
+                }, {
+                    ranking: 2,
+                    team: "Chelsea"
+                }, {
+                    ranking: 3,
+                    team: "Liverpool"
+                }]
+            },
+            components: {
+                "my-template": myTemplate
+            }
+        })
+        let data3 = new Vue({
+            el: "#div3",
+            data: {
+                message7: "<i>hehehe</i>",
+                message8: true
+            }
+        })
+        let data4 = new Vue({
+            el: "#div4",
+            data: {
+                showState: true,
+                message8: true,
+                message9: 5
+            }
+        })
+        let data5 = new Vue({
+            el: "#div5",
+            data: {
+                firstName: "Dehua",
+                lastName: "Liu",
+                message10: "1111111111"
+            },
+            computed: {
+                fullName: {
+                    get: function () {
+                        return `${this.firstName} ${this.lastName}`;
+                    },
+                    set: function (newValue, oldValue) {
+                        let nameArray = newValue.split(" ");
+                        this.firstName = nameArray[0];
+                        this.lastName = nameArray[1];
+                    }
+                }
+            },
+            watch: {
+                message10: function (newValue, oldValue) {
+                    alert(`旧的值是${oldValue}，新的值是${newValue}。`);
+                }
+            }
+        })
+        let data6 = new Vue({
+            el: "#div6",
+            data: {
+                nameList: [{
+                    val: "Zhang San"
+                }, {
+                    val: "Li Si"
+                }, {
+                    val: "Wang Wu"
+                }],
+                objList: {
+                    name: "Trump",
+                    occupation: "President",
+                    nationality: "the United State"
+                }
+            }
+        })
+        Vue.set(data6.nameList, 3, {
+            val: "Zhao Liu"
+        });
+        data6.nameList.splice(4, 0, {
+            val: "Zhang San"
+        });
+        Vue.set(data6.objList, "sex", "Male");
+        data6.$set(data6.objList, "age", 100);
+        data6.objList = Object.assign({}, data6.objList, {
+            hobby: "International big mouth",
+            weight: "80kg"
+        })
+        let data7 = new Vue({
+            el: "#div7",
+            data: {
+                nums: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            },
+            computed: {
+                oddNums: function () {
+                    return this.nums.filter(function (num) {
+                        return num % 2 !== 0;
+                    })
+                }
+            },
+            methods: {
+                evenNums: function (nums) {
+                    return this.nums.filter(function (num) {
+                        return num % 2 === 0;
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

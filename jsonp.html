@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="pop">弹窗</div>
+</body>
+<script>
+	var pop = document.getElementById("pop");
+	pop.onclick = function () {
+		var url = 'flightResult.php?code=CA1998&callback=flightHandler';
+		var script = document.createElement('script');
+		script.setAttribute('src', url);
+		document.getElementsByTagName('head')[0].appendChild(script);
+	}
+
+	var data = {};
+	var flightHandler = function (data) {
+		alert('你查询的航班结果是：票价 ' + data.price + '元，余票' + data.tickets + '张');
+	};
+	
+</script>
+</html>

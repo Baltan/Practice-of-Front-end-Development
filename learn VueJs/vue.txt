@@ -1,0 +1,8 @@
+v-model="key"   .lazy   .trim   .number
+v-if=""   v-else-if=""   v-else=""
+v-show=""
+v-for="(item,index) in list"
+v-bind  :class="{active:isActivess}"
+v-on  @submit="func($event)"...func(e){e.preventDefault();}==========@submit.prevent="func"
+      @click="func($event)"...func(e){e.stopPropagation();}==========@click.stop="func"
+      @keyup="func($event)"...func(e){//判定是否是回车键}==========@keyup.enter="func"==========@keyup.13="func"

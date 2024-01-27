@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>工厂模式、构造函数</title>
+    <script type="text/javascript" charset="utf-8">
+        //工厂模式
+        function createStu(name, age) {
+            var stu = new Object();
+            stu.name = name;
+            stu.age = age;
+            stu.say = function () {
+                alert(`"姓名:"${this.name}\n"年龄:"${this.age}`);
+            }
+            return stu;
+        }
+        var stu1 = createStu("张三", 23);
+        var stu2 = createStu("李四", 24);
+        // alert(stu1.name);
+        // alert(stu1.age);
+        // stu1.say();
+        // alert(stu2.name);
+        // alert(stu2.age);
+        // stu2.say();
+
+
+
+        //构造函数
+        function Student(name, age) {
+            this.name = name;
+            this.age = age;
+            this.say = function () {
+                alert(`"姓名:"${this.name}\n"年龄:"${this.age}`);
+            }
+        }
+        Student.prototype.gender = "男";
+        var stu3 = new Student("王五", 25);
+        var stu4 = new Student("赵六", 26);
+        // alert(stu3.name);
+        // alert(stu3.age);
+        // alert(stu3.gender);
+        // stu3.say();
+        // alert(stu3 instanceof Student);
+        // alert(stu4.name);
+        // alert(stu4.age);
+        // alert(stu4.gender);
+        // stu4.say();
+        // alert(stu4 instanceof Student);
+        // alert(Student.prototype);
+        // alert(stu3.__proto__);
+        // alert(stu4.__proto__);
+        // alert(Student.prototype.isPrototypeOf(stu3));
+        // alert(stu3.hasOwnProperty("gender"));
+        // alert(stu3.hasOwnProperty("name"));
+        // alert("gender" in stu3);
+        alert(Student.prototype);      //object Object 
+        alert(Student.__proto__);      //function(){}    ???????????????????????
+        alert(stu3.constructor);       //function Student(nae,age){}
+
+
+
+        //构造函数+原型对象      //每个对象特有的数据使用构造函数，所有对象共有的数据使用原型对象
+        function Player(name, age) {
+            this.name = name;
+            this.age = age;
+            this.say = function () {
+                alert(`"姓名:"${this.name}\n"年龄:"${this.age}`);
+            }
+        }
+        Player.prototype = { team: "MUFB", city: "Manchester United" };
+
+
+
+        //动态原型模式         //这种方法每次在实例化一个对象时，原型对象都会被初始化一次，所以可以添加一个判断    并且设置原型对象时不能写成:Player.prototype={};
+        function Player(name, age) {
+            this.name = name;
+            this.age = age;
+            if (typeof this.say != "function") {
+                Player.prototype.say = function () {
+                    alert(`"姓名:"${this.name}\n"年龄:"${this.age}`);
+                }
+            }
+        }
+
+
+
+        //寄生构造函数：工厂模式+构造函数
+        function Person(name, age) {
+            var obj = new Object;
+            obj.name = name;
+            obj.age = age;
+            obj.say = function () {
+                alert(`"姓名:"${name}\n"年龄:"${age}`);
+            }
+            return obj;
+        }
+        var Person2 = new Person("丁丁", 10);
+        // Person2.say()
+
+
+
+        //稳妥构造函数      //构造函数内部不能使用this关键字，外部实例化不能使用new关键字
+        function Person(name, age) {
+            var obj = new Object;
+            obj.name = name;
+            obj.age = age;
+            obj.say = function () {
+                alert(`"姓名:"${name}\n"年龄:"${age}`);
+            }
+            return obj;
+        }
+        var person1 = Person("小明", 20);
+        // person1.say();
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

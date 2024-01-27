@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+    <script type="text/javascript">
+        //原型链继承      问题：1、当原型中存在引用类型时，存在数据修改的问题       2、子类类型的对象无法给父类传参数
+        function Test(age) {
+            this.age = age;
+            this.family = ["爸爸", "妈妈"];
+        }
+        function Person() { };
+        Person.prototype = new Test(20);
+        var p1 = new Person();
+        p1.family.push("哥哥");
+        var p2 = new Person();
+        // alert(p2.family);     //爸爸，妈妈，哥哥
+
+
+
+        //对象冒充      问题：1、会为实例分别创建say方法，浪费内存。并且不能使用原型链写法，即实例无法访问Test.prototype，所以不能实现数据共享
+        function Test(age) {
+            this.age = age;
+            this.family = ["爸爸", "妈妈"];
+            this.say = function () {
+                alert(`${this.age}\n${this.family}`);
+            }
+        }
+        function Person(age) {
+            Test.call(this, age);
+        }
+        var p3 = new Person(20);
+        // p3.say();
+        var p4 = new Person(21);
+        // p4.say();
+        // alert(p3.say==p4.say);     //false
+
+
+
+
+        //组合继承（原型链+对象冒充）
+        function Test(age) {
+            this.age = age;
+            this.family = ["爸爸", "妈妈"];
+        }
+        Test.prototype.say = function () {
+            alert(`${this.age}\n${this.family}`);
+        }
+        function Person(age) {
+            Test.call(this, age);               //对象冒充
+        }
+        Person.prototype = new Test();          //原型链
+        var p5 = new Person(30);
+        // p5.say();
+        var p6 = new Person(31);
+        // p6.say();
+        // alert(p3.say == p4.say);     //true
+
+        //???????????为什么不写成：
+        // function Test(age) {
+        //     this.age = age;
+        //     this.family = ["爸爸", "妈妈"];
+        // }
+        // function Person(age) {
+        //     Test.call(this, age);               
+        // }
+        // Person.prototype.say = function () {
+        //     alert(`${this.age}\n${this.family}`);
+        // }          
+        // var p5 = new Person(30);
+        // p5.say();
+        // var p6 = new Person(31);
+        // p6.say();
+        // alert(p3.say == p4.say);     //true
+
+
+
+        //原型式继承（原型链继承的另一种写法）     问题：1、当原型中存在引用类型时，存在数据修改的问题
+        function getObj(o) {     //返回原型是o的一个对象
+            function F() { };
+            F.prototype = o;
+            return new F();
+        }
+        var person = {
+            name: "Tom",
+            family: ["爸爸", "妈妈"]
+        }
+        var obj1 = getObj(person);
+        obj1.family.push("哥哥");
+        var obj2 = getObj(person);
+        // alert(obj2.family);     //爸爸，妈妈，哥哥
+
+
+
+        //寄生式继承（原型式继承+工厂模式）：封装创建对象的过程     问题：1、当原型中存在引用类型时，存在数据修改的问题
+        function getObj(o) {     //返回原型是o的一个对象
+            function F() { };
+            F.prototype = o;
+            return new F();
+        }
+        function createObj(o) {     //寄生函数
+            var obj = getObj(o);
+            obj.arr = ["html", "css"];
+            return obj;
+        }
+        var person = {
+            name: "Tom",
+            family: ["爸爸", "妈妈"]
+        }
+        var a = createObj(person);
+        a.family.push("哥哥");
+        a.arr.push("javascript");
+        var b = createObj(person);
+        alert(b.family);     //爸爸，妈妈，哥哥
+        alert(b.arr);     //html，css，javascript
+
+
+
+        //寄生组合继承
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

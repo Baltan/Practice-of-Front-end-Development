@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="div1" v-show="false">
+        <fuck :a="c[0]" :b="c[1]"></fuck>
+        <div v-suck="arg1" :param1="param1Value" :param2="param2Value">{{ arg1 }}</div>
+        <div v-html="arg2"></div>
+    </div>
+
+    <script>
+        "use strict"
+
+        let com = Vue.component("fuck", {
+            props: ["a", "b"],
+            data() {
+                return {
+                    c: "ccc"
+                }
+            },
+            template: "<ul><li>{{a}}</li><li>{{b}}</li><li>{{c}}</li></ul>"
+        })
+
+        let dir = Vue.directive("suck", {
+            // twoWay: true,
+            // acceptStatement: true,
+            // terminal: true,
+            // priority: 1000, // 普通指令默认值为1000
+            params: ["param1", "param2"],
+            paramWatchers: {
+                param1(newValue, oldValue) {
+                    console.log("param1Value", newValue, oldValue);
+                },
+                param2(newValue, oldValue) {
+                    console.log("param2Value", newValue, oldValue);
+                }
+            },
+            bind(arg) {
+                console.log("bind", arg);
+            },
+            update(newValue, oldValue) {
+                console.log("update", newValue, oldValue);
+            },
+            unbind(arg) {
+                console.log("unbind", arg);
+            }
+        })
+
+        let vm = new Vue({
+            el: "#div1",
+            data: {
+                false: true,
+                c: ["aaa", "bbb"],
+                arg1: "hehe",
+                arg2: "<span>haha</span>",
+                param1Value: "this is param1",
+                param2Value: "this is param2"
+            }
+        });
+    </script>
+</body>
+
+</html>
